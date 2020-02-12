@@ -25,13 +25,16 @@ public class FcmMessagingService  extends FirebaseMessagingService {
     PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,
         PendingIntent.FLAG_ONE_SHOT);
     NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+    //aqui podria ser cn un media player
     Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
     RemoteMessage.Notification notification = remoteMessage.getNotification();
+
     if (notification != null) {
       Notification.Builder notificationBuilder = new Notification.Builder(this)
           .setSmallIcon(R.drawable.ic_stat_name).setContentTitle(notification.getTitle())
           .setContentText(notification.getBody()).setAutoCancel(true)
           .setSound(defaultSoundUri).setContentIntent(pendingIntent);
+      //este if es importante para saber si tiene el sdk correcto
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
         NotificationChannel channel = new NotificationChannel("idmichanel", "Ofertachanel",
             NotificationManager.IMPORTANCE_DEFAULT);
