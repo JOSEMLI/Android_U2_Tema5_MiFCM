@@ -21,6 +21,12 @@ public class FcmMessagingService  extends FirebaseMessagingService {
   }
   private void sendNotification(RemoteMessage remoteMessage) {
     Intent intent = new Intent(this, MainActivity.class);
+    //se añade esta lineas
+    if(remoteMessage.getData() != null) {
+      String desc = remoteMessage.getData().get("descuento");
+      intent.putExtra("descuento", desc + "administrado por la app");
+    }
+
     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
     PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,
         PendingIntent.FLAG_ONE_SHOT);
